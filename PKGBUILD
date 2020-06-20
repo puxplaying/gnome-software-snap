@@ -1,5 +1,5 @@
-# Maintainer: Georg Wagner
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: pux @forum.manjaro.org
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
