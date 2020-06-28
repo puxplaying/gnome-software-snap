@@ -29,7 +29,6 @@ prepare() {
 
 build() {
   arch-meson $pkgbase build \
-    -D ubuntu_reviews=true \
     -D snap=true
   ninja -C build
 }
@@ -71,4 +70,3 @@ package_gnome-software-snap-packagekit-plugin() {
   depends=(archlinux-appstream-data gnome-software packagekit)
   mv packagekit-plugin/* "$pkgdir"
 }
-
