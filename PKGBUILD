@@ -6,7 +6,7 @@
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
 pkgver=3.36.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
