@@ -5,7 +5,7 @@
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=3.36.1
+pkgver=3.38.0
 pkgrel=2
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
@@ -13,8 +13,8 @@ arch=(x86_64)
 license=(GPL2)
 makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd ostree
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind
-             gnome-online-accounts libxmlb malcontent snapd-glib snapd liboauth)
-_commit=56a23c5c716a0d4593c7e790a1b45b678998be28  # tags/3.36.1^0
+             gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth)
+_commit=de586130932f5a33a20f57ffe836ebd36443f9d3  # tags/3.38.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
 sha256sums=('SKIP')
 
@@ -28,9 +28,12 @@ prepare() {
 }
 
 build() {
+  # Ensure static library is non-LTO compatible
+  CFLAGS+=" -ffat-lto-objects"
+
   arch-meson $pkgbase build \
-    -D snap=true
-  ninja -C build
+  -D snap=true
+  meson compile -C build
 }
 
 check() {
