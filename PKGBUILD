@@ -6,12 +6,12 @@
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
 pkgver=3.38.0
-pkgrel=2
+pkgrel=3
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
 license=(GPL2)
-makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd ostree
+makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd 
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind
              gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth)
 _commit=de586130932f5a33a20f57ffe836ebd36443f9d3  # tags/3.38.0^0
@@ -52,14 +52,14 @@ _pick() {
 }
 
 package_gnome-software-snap() {
-  groups=('gnome')
+  groups=(gnome)
   conflicts=(gnome-software gnome-software-packagekit-plugin)
   provides=("gnome-software=$pkgver" "gnome-software-packagekit-plugin=$pkgver")
   depends=(libxmlb gnome-desktop gsettings-desktop-schemas gspell libpackagekit-glib
-           gnome-online-accounts appstream-glib malcontent snapd-glib snapd liboauth)
+           gnome-online-accounts appstream-glib snapd-glib snapd liboauth)
   optdepends=('flatpak: Flatpak support plugin'
               'fwupd: fwupd support plugin'
-              'ostree: OSTree support plugin')
+              'malcontent: Parental control plugin')
 
   DESTDIR="$pkgdir" meson install -C build
 
