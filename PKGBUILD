@@ -1,12 +1,12 @@
-# Maintainer: pux @forum.manjaro.org
+# Maintainer: Georg Wagner <puxplaying@gmail.com>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=3.38.0
-pkgrel=3
+pkgver=3.38.1
+pkgrel=1
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
@@ -14,7 +14,7 @@ license=(GPL2)
 makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd 
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind
              gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth)
-_commit=de586130932f5a33a20f57ffe836ebd36443f9d3  # tags/3.38.0^0
+_commit=67f67bbaceb5c8a0e21c5f6b21b9be276c1165b7  # tags/3.38.1^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
 sha256sums=('SKIP')
 
