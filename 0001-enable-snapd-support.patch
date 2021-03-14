@@ -1,0 +1,25 @@
+From 32dd952635a029b081ddbf5508c5711e85132069 Mon Sep 17 00:00:00 2001
+From: puxplaying <puxplaying@gmail.com>
+Date: Sun, 21 Feb 2021 14:44:23 +0100
+Subject: [PATCH] enable snapd support
+
+---
+ plugins/snap/gs-plugin-snap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugins/snap/gs-plugin-snap.c b/plugins/snap/gs-plugin-snap.c
+index a42d8aa3..abd301b6 100644
+--- a/plugins/snap/gs-plugin-snap.c
++++ b/plugins/snap/gs-plugin-snap.c
+@@ -901,7 +901,7 @@ refine_screenshots (GsApp *app, SnapdSnap *snap)
+ 			continue;
+ 
+ 		ss = as_screenshot_new ();
+-		as_screenshot_set_kind (ss, AS_SCREENSHOT_KIND_NORMAL);
++		as_screenshot_set_kind (ss, AS_SCREENSHOT_KIND_EXTRA);
+ 		image = as_image_new ();
+ 		as_image_set_url (image, snapd_media_get_url (m));
+ 		as_image_set_kind (image, AS_IMAGE_KIND_SOURCE);
+-- 
+2.30.1
+
