@@ -5,18 +5,20 @@
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=3.38.1
+pkgver=40.rc+9+ge876c69e
 pkgrel=1
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
 license=(GPL2)
-makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd 
+makedepends=(appstream appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd 
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind
-             gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth)
-_commit=67f67bbaceb5c8a0e21c5f6b21b9be276c1165b7  # tags/3.38.1^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
-sha256sums=('SKIP')
+             gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth cmake libhandy)
+_commit=e876c69ee0fbddc7cfc9f317091f95c2b0316412  # tags/3.38.1^0
+source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit"
+        'git+https://gitlab.gnome.org/GNOME/libhandy.git')
+sha256sums=('SKIP'
+            'SKIP')
 
 pkgver() {
   cd $pkgbase
@@ -25,6 +27,9 @@ pkgver() {
 
 prepare() {
   cd $pkgbase
+  git submodule init
+  git submodule set-url subprojects/libhandy "$srcdir/libhandy"
+  git submodule update
 }
 
 build() {
@@ -64,8 +69,8 @@ package_gnome-software-snap() {
   DESTDIR="$pkgdir" meson install -C build
 
 ### Split gnome-software-packagekit-plugin
-  _pick packagekit-plugin "$pkgdir"/usr/lib/gs-plugins-*/libgs_plugin_packagekit*.so
-  _pick packagekit-plugin "$pkgdir"/usr/lib/gs-plugins-*/libgs_plugin_systemd-updates.so
+  _pick packagekit-plugin "$pkgdir"/usr/lib/gnome-software/plugins-*/libgs_plugin_packagekit*.so
+  _pick packagekit-plugin "$pkgdir"/usr/lib/gnome-software/plugins-*/libgs_plugin_systemd-updates.so
 }
 
 package_gnome-software-snap-packagekit-plugin() {
