@@ -5,20 +5,19 @@
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=40.rc+11+g37f98cc0
+pkgver=40.0+70+gb87a57b7
 pkgrel=1
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
 license=(GPL2)
-makedepends=(appstream appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd 
-             docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind
-             gnome-online-accounts libxmlb malcontent sysprof snapd-glib snapd liboauth cmake libhandy)
-_commit=37f98cc0ef1e384db18a3acc077597ee9c1ea9b3  # tags/40.rc^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit"
-        'git+https://gitlab.gnome.org/GNOME/libhandy.git')
-sha256sums=('SKIP'
-            'SKIP')
+makedepends=(appstream gsettings-desktop-schemas libpackagekit-glib flatpak
+             fwupd docbook-xsl git gobject-introspection gspell gtk-doc meson
+             valgrind gnome-online-accounts libxmlb malcontent libhandy snapd-glib snapd)
+_commit=f789bdf17a0be3d1bd0a36c7953ea575ddeed5b8  # tags/40.0^0
+source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
+        #'git+https://gitlab.gnome.org/GNOME/libhandy.git')
+sha256sums=('SKIP')
 
 pkgver() {
   cd $pkgbase
@@ -27,9 +26,9 @@ pkgver() {
 
 prepare() {
   cd $pkgbase
-  git submodule init
-  git submodule set-url subprojects/libhandy "$srcdir/libhandy"
-  git submodule update
+  #git submodule init
+  #git submodule set-url subprojects/libhandy "$srcdir/libhandy"
+  #git submodule update
 }
 
 build() {
@@ -37,6 +36,7 @@ build() {
   CFLAGS+=" -ffat-lto-objects"
 
   arch-meson $pkgbase build \
+  -D sysprof=disabled \
   -D snap=true
   meson compile -C build
 }
@@ -60,8 +60,8 @@ package_gnome-software-snap() {
   groups=(gnome)
   conflicts=(gnome-software gnome-software-packagekit-plugin)
   provides=("gnome-software=$pkgver" "gnome-software-packagekit-plugin=$pkgver")
-  depends=(libxmlb gnome-desktop gsettings-desktop-schemas gspell libpackagekit-glib
-           gnome-online-accounts appstream-glib snapd-glib snapd liboauth)
+  depends=(libxmlb gsettings-desktop-schemas gspell libpackagekit-glib
+           gnome-online-accounts appstream libhandy snapd-glib snapd)
   optdepends=('flatpak: Flatpak support plugin'
               'fwupd: fwupd support plugin'
               'malcontent: Parental control plugin')
@@ -69,8 +69,9 @@ package_gnome-software-snap() {
   DESTDIR="$pkgdir" meson install -C build
 
 ### Split gnome-software-packagekit-plugin
-  _pick packagekit-plugin "$pkgdir"/usr/lib/gnome-software/plugins-*/libgs_plugin_packagekit*.so
-  _pick packagekit-plugin "$pkgdir"/usr/lib/gnome-software/plugins-*/libgs_plugin_systemd-updates.so
+  local pkglibdir="$pkgdir/usr/lib/gnome-software"
+  _pick packagekit-plugin "$pkglibdir"/plugins-*/libgs_plugin_packagekit*.so
+  _pick packagekit-plugin "$pkglibdir"/plugins-*/libgs_plugin_systemd-updates.so
 }
 
 package_gnome-software-snap-packagekit-plugin() {
