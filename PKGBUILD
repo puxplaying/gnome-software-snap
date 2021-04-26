@@ -5,7 +5,7 @@
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=40.0+70+gb87a57b7
+pkgver=40.0+209+g5f35704a
 pkgrel=1
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
@@ -14,7 +14,7 @@ license=(GPL2)
 makedepends=(appstream gsettings-desktop-schemas libpackagekit-glib flatpak
              fwupd docbook-xsl git gobject-introspection gspell gtk-doc meson
              valgrind gnome-online-accounts libxmlb malcontent libhandy snapd-glib snapd)
-_commit=f789bdf17a0be3d1bd0a36c7953ea575ddeed5b8  # tags/40.0^0
+_commit=5f35704a8868c656cb7dd4c7eca866ab30dc4c07  # tags/40.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
         #'git+https://gitlab.gnome.org/GNOME/libhandy.git')
 sha256sums=('SKIP')
