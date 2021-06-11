@@ -1,11 +1,11 @@
 # Maintainer: Georg Wagner <puxplaying@gmail.com>
-# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgbase=gnome-software
 pkgname=(gnome-software-snap gnome-software-snap-packagekit-plugin)
-pkgver=40.1+13+g242dfec1
+pkgver=40.2
 pkgrel=1
 pkgdesc="GNOME Software Tools with builtin snap support"
 url="https://wiki.gnome.org/Apps/Software/"
@@ -14,9 +14,8 @@ license=(GPL2)
 makedepends=(appstream gsettings-desktop-schemas libpackagekit-glib flatpak
              fwupd docbook-xsl git gobject-introspection gspell gtk-doc meson
              valgrind gnome-online-accounts libxmlb malcontent libhandy snapd-glib snapd)
-_commit=242dfec1e288d47733a627ba966dc08e87b7df23 # tags/40.0^0
+_commit=11b5e9663a7ee9fe0e5c9f97c864b804cf5271d5  # tags/40.2^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit")
-        #'git+https://gitlab.gnome.org/GNOME/libhandy.git')
 sha256sums=('SKIP')
 
 pkgver() {
@@ -26,9 +25,6 @@ pkgver() {
 
 prepare() {
   cd $pkgbase
-  #git submodule init
-  #git submodule set-url subprojects/libhandy "$srcdir/libhandy"
-  #git submodule update
 }
 
 build() {
@@ -66,7 +62,7 @@ package_gnome-software-snap() {
               'fwupd: fwupd support plugin'
               'malcontent: Parental control plugin')
 
-  DESTDIR="$pkgdir" meson install -C build
+  meson install -C build --destdir="$pkgdir"
 
 ### Split gnome-software-packagekit-plugin
   local pkglibdir="$pkgdir/usr/lib/gnome-software"
